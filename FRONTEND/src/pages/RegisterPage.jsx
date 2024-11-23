@@ -7,19 +7,20 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return; // Evita múltiples envíos
+    setIsSubmitting(true);
+  
     try {
-      setError(null);
-      setSuccess(null);
       const user = await registerUser(name, email, password);
       setSuccess(`Usuario registrado con éxito: ${user.name}`);
-      setName("");
-      setEmail("");
-      setPassword("");
-    } catch (err) {
-      setError("Error al registrar usuario. Verifica los datos o inténtalo nuevamente." + err);
+    } catch (error) {
+      setError("Error al registrar usuario. Inténtalo nuevamente." + error);
+    } finally {
+      setIsSubmitting(false); // Habilita nuevamente el botón
     }
   };
 

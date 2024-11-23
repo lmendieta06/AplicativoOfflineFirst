@@ -10,7 +10,8 @@ const UserSchema = new mongoose.Schema({
 // Middleware para encriptar contraseña
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
+  const salt = await bcrypt.genSalt(10); // Genera un salt con un factor de costo de 10
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
