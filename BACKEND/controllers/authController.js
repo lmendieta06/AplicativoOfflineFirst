@@ -1,4 +1,4 @@
-import { loginUser, registerUser } from "../useCases/authenticateUser.js";
+import { loginUser, postUser } from "../useCases/authenticateUser.js";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -17,7 +17,7 @@ export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    const user = await registerUser(name, email, password);
+    const user = await postUser(name, email, password);
     res.status(201).json({ message: "Usuario registrado con éxito.", user });
   } catch (error) {
     console.error("Error al registrar usuario:", error.message);

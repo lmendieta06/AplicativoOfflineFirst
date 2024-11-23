@@ -11,7 +11,7 @@ const useSync = () => {
   const mutation = useMutation(syncDataWithServer, {
     onSuccess: () => {
       console.log("Datos sincronizados exitosamente con el servidor.");
-      // Opcional: Invalida caché local para actualizar datos remotos
+      // Invalida caché local para actualizar datos remotos
       queryClient.invalidateQueries("localData");
     },
     onError: (error) => {
